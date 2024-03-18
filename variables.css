@@ -1,0 +1,27 @@
+:root{
+  --main_txt_size: 14px;
+
+  --div: 300px;
+
+  --margins: 20px;
+  --gap: 10px;
+  --5px: 5px;
+  --15px: calc(var(--5px)*3);
+  --h: 30px;
+  --h2: 40px;
+  
+  --bg: #ffffff;
+  --fg: #121111;
+  --diss: #b4b0b0;
+}
+
+/* Dark mode overrides */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #202020;
+    --fg: #E8E8E8;
+    --diss: #848484;
+  }
+}
+
+
