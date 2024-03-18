@@ -65,8 +65,8 @@ function setupControls(){
   let midCheck = select('#mid_check');
   let midCol = select('#midColor');
   let midColText = select('#midColorTxt');
-  let midPos = select('#midPos');
-  let midPosText = select('#midPosTxt');
+  // let midPos = select('#midPos');
+  // let midPosText = select('#midPosTxt');
   
   midCol.input(()=>{
     midColText.value(midCol.value());
@@ -85,9 +85,9 @@ function setupControls(){
     if(midColText.value()==='')midColText.value('#');
   })
   //slider change
-  midPos.input(()=>{
-    redraw();
-  })
+  // midPos.input(()=>{
+  //   redraw();
+  // })
 
 
   // react on checking unchecking
@@ -96,13 +96,13 @@ function setupControls(){
       //enable color picker, slider, two text fields
       midCol.removeAttribute("disabled");
       midColText.removeAttribute("disabled");
-      midPos.removeAttribute("disabled");
+      // midPos.removeAttribute("disabled");
       redraw();
     } else {
       //disable color picker, slider, two text fields
       midCol.attribute("disabled", true);
       midColText.attribute("disabled", true);
-      midPos.attribute("disabled", true);   
+      // midPos.attribute("disabled", true);   
       redraw();
     }
   })

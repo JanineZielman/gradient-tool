@@ -7,7 +7,9 @@ let gradientShader,dataShader,copyShader,
     segmentCounter = 0;
 
 var r = 0;
+var g = 0;
 var stepSize  = 0.001;
+var stepSize2  = 1;
 
 function preload(){
   dataShader = loadShader('./basic.vert', './datatexture.frag');
@@ -90,30 +92,29 @@ function draw() {
   topColRGB.push(1);
 
 
-  // topColRGB[0] =  topColRGB[0] - r;
-  // topColRGB[1] =  topColRGB[1] + r + 50;
-  // topColRGB[2] =  topColRGB[2] - r;
-
-
   let botColHEX = select('#botColor').value();
   let botColRGB = hexToRgb(botColHEX);
   botColRGB.push(1);
 
-  // botColRGB[0] =  botColRGB[0] + r;
-  // botColRGB[1] =  botColRGB[1] - r;
-  // botColRGB[2] =  botColRGB[2] + (r * 0.5);
 
   let midColHEX = select('#midColor').value();
   let midColRGB = hexToRgb(midColHEX);
-  midColRGB.push(select('#midPos').value());
+  // midColRGB.push(select('#midPos').value());
   if(!select('#mid_check').checked()) midColRGB = [-1,-1,-1,-1]; //delete middle colorstop if disabled
 
 
   midColRGB[3] =  r;
 
-  // midColRGB[0] =  midColRGB[0] + (r * 0.5);
-  // midColRGB[1] =  midColRGB[1] + (r * 0.5);
-  // midColRGB[2] =  midColRGB[2] + (r * 0.5);
+
+  if(select('#animation_check').checked()){
+    topColRGB[0] =  topColRGB[0] + g;
+    topColRGB[1] =  topColRGB[1] + g;
+    topColRGB[2] =  topColRGB[2] + g;
+
+    botColRGB[0] =  botColRGB[0] + g;
+    botColRGB[1] =  botColRGB[1] + g;
+    botColRGB[2] =  botColRGB[2] + g;
+  }
 
   let colors = [];
   colors.push(...topColRGB);
@@ -121,6 +122,15 @@ function draw() {
   colors.push(...midColRGB);
 
   r = r + stepSize;
+
+  g = g + stepSize2;
+
+  if (g > 75){
+    stepSize2 = stepSize2 * -1;
+  } 
+  if (g < -75){
+    stepSize2 = stepSize2 * -1;
+  }
 
   if (r > 1){
     stepSize = stepSize * -1;
