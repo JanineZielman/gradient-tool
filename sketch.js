@@ -6,6 +6,9 @@ let gradientShader,dataShader,copyShader,
     B = [-1,-1,-1],//coordinates of current line segment
     segmentCounter = 0;
 
+var r = 0;
+var stepSize  = 1;
+
 function preload(){
   dataShader = loadShader('./basic.vert', './datatexture.frag');
   gradientShader = loadShader('./basic.vert', './gradient.frag');
@@ -48,8 +51,8 @@ function setup() {
 
 function draw() {
   // weird fix of a weird visual bug
-  if(frameCount < 4) clearDataTexture();
-  if(frameCount === 4) noLoop();
+  // if(frameCount < 4) clearDataTexture();
+  // if(frameCount === 4) noLoop();
 
   if (isDrawingSVG && frameCount > 4){
     let p = PATHS[pathCounter];
@@ -86,19 +89,44 @@ function draw() {
   let topColRGB = hexToRgb(topColHEX);
   topColRGB.push(1);
 
+
+  topColRGB[0] =  topColRGB[0] - r;
+  topColRGB[1] =  topColRGB[1] + r + 50;
+  topColRGB[2] =  topColRGB[2] - r;
+
+
+
   let botColHEX = select('#botColor').value();
   let botColRGB = hexToRgb(botColHEX);
   botColRGB.push(1);
+
+  botColRGB[0] =  botColRGB[0] + r;
+  botColRGB[1] =  botColRGB[1] - r;
+  botColRGB[2] =  botColRGB[2] + (r * 0.5);
 
   let midColHEX = select('#midColor').value();
   let midColRGB = hexToRgb(midColHEX);
   midColRGB.push(select('#midPos').value());
   if(!select('#mid_check').checked()) midColRGB = [-1,-1,-1,-1]; //delete middle colorstop if disabled
 
+  midColRGB[0] =  midColRGB[0] + (r * 0.5);
+  midColRGB[1] =  midColRGB[1] + (r * 0.5);
+  midColRGB[2] =  midColRGB[2] + (r * 0.5);
+
   let colors = [];
   colors.push(...topColRGB);
   colors.push(...botColRGB);
   colors.push(...midColRGB);
+
+
+  r = r + stepSize;
+
+  if (r > 150){
+    stepSize = stepSize * -1;
+  } 
+  if (r < -150){
+    stepSize = stepSize * -1;
+  }
 
   background(255);
   translate(-width/2, -height/2);

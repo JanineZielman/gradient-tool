@@ -145,6 +145,12 @@ input[type=number] {
 }
 
 
+.animate-button{
+  margin-top: 24px;
+}
+.animate-button button{
+  width: 100%;
+}
 
 
 
